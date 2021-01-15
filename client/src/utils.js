@@ -42,21 +42,66 @@ const getWeb3 = async () => {
   });
 };
 
+// const getContracts = async web3 => {
+//   const networkId=await web3.eth.net.getId();
+//   console.log("**@ network ID is , ",networkId);
+//   const deployedNetwork=Dex.networks[networkId];
+
+//   const dex= new web3.eth.Contract(Dex.abi,deployedNetwork && deployedNetwork.address);
+//   console.log("**@ dex contract is , ",dex.methods);
+//   const tokens=await dex.methods.listTradeTokens().call();
+//   console.log("**@ tokens are , ",tokens);
+
+//   const tokenContracts=tokens.reduce((acc,token)=>({
+//    ...acc,
+//    [web3.utils.hexToUtf8(token.ticker)]:new web3.eth.Contract(
+//      ERC20Abi,
+//      token.tokenAddress
+//    )
+//   }),{});
+
+//   return {dex,...tokenContracts};
+// }
+
+// const getContracts = async web3 => {
+//   const networkId=await web3.eth.net.getId();
+//   console.log("**@ network id is , ",networkId);
+//   const deployedNetwork=Dex.networks[networkId];
+//   console.log("**@ deployedNetwork is , ",deployedNetwork);
+  
+//   const dex= new web3.eth.Contract(Dex.abi,deployedNetwork && deployedNetwork.address);
+//   const tokens=await dex.methods.listTradeTokens().call();
+//   console.log("**@ the tokens from utils are , ",tokens);
+
+//   const tokenContracts=tokens.reduce((acc,token)=>({
+//    ...acc,
+//    [web3.utils.hexToUtf8(token.ticker)]:new web3.eth.Contract(
+//      ERC20Abi,
+//      token.tokenAddress
+//    )
+//   }),{});
+//   return {dex,...tokenContracts};
+// }
+
 const getContracts = async web3 => {
-  const networkId=await web3.eth.net.getId();
-  const deployedNetwork=Dex.networks[networkId];
-  const dex= new web3.eth.Contract(Dex.abi,deployedNetwork && deployedNetwork.address);
-  const tokens=await dex.methods.listTradeTokens().call();
-
-  const tokenContracts=tokens.reduce((acc,token)=>({
-   ...acc,
-   [web3.utils.hexToUtf8(token.ticker)]:new web3.eth.Contract(
-     ERC20Abi,
-     token.tokenAddress
-   )
-  }),{});
-
-  return {dex,...tokenContracts};
+  const networkId = await web3.eth.net.getId();
+  // console.log("**@ INSIDE UTILS GET CONTRACTS , NETWORK ID IS , ",networkId);
+  const deployedNetwork = Dex.networks[networkId];
+  const dex = new web3.eth.Contract(
+    Dex.abi,
+    deployedNetwork && deployedNetwork.address,
+  );
+  // console.log("**@ dex is , ",dex.methods);
+  const tokens = await dex.methods.listTradeTokens().call();
+  // console.log("**@ the tokens from list trade tokens are , ",tokens);
+  const tokenContracts = tokens.reduce((acc, token) => ({
+    ...acc,
+    [web3.utils.hexToUtf8(token.ticker)]: new web3.eth.Contract(
+      ERC20Abi,
+      token.tokenAddress
+    )
+  }), {});
+  return { dex, ...tokenContracts };
 }
 
 export { getWeb3, getContracts };

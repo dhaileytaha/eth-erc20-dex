@@ -13,10 +13,10 @@ function Dropdown({onSelect,activeItem,items}) {
 
     useEffect(()=>{
       const init=async ()=>{
-      console.log("**@ 999999999999999999  tokens are , ",items);
-      console.log("**@ 99999999999999999999999999  selected token label  is , ",activeItem.label);
-      console.log("**@ 999999999999999999999999999999  value is , ",activeItem.value)
-      console.log("**@ onselect is , ",onSelect);
+      // console.log("**@ 999999999999999999  tokens are , ",items);
+      // console.log("**@ 99999999999999999999999999  selected token label  is , ",activeItem.label);
+      // console.log("**@ 999999999999999999999999999999  value is , ",activeItem.value)
+      // console.log("**@ onselect is , ",onSelect);
       }
 
       init();

@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer>
       <p className="text-center">
-  From  <a href="http://pro.eattheblocks.com" style={{color: 'white'}}>6-Figures Blockchain dev</a>, a Blockchain course to become a Profesional Blockchain developer
+  From  <a href="#" style={{color: 'white'}}>ETHEREUM ERC20 DEX</a>, an exchange to trade with erc20 tokens.
       </p>
     </footer>
   );

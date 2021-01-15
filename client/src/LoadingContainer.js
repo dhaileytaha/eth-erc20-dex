@@ -14,9 +14,9 @@ function LoadingContainer() {
       const contracts=await getContracts(web3);
        const accounts=await web3.eth.getAccounts();
 
-       console.log("**@ inside loading container , web3 is ,",web3);
-       console.log("**@ inside loading container , contracts  are  ,",contracts);
-       console.log("**@ inside loading container , accounts are  ,",accounts);
+    //    console.log("**@ inside loading container , web3 is ,",web3);
+    //    console.log("**@ inside loading container , contracts  are  ,",contracts);
+    //    console.log("**@ inside loading container , accounts are  ,",accounts);
 
 
        setWeb3(web3);

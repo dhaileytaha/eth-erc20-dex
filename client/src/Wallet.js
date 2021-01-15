@@ -7,6 +7,7 @@ const DIRECTION={
 function Wallet({user,withdraw,deposit}) {
   const [direction,setDirection]=useState(DIRECTION.DEPOSIT);
   const [amount,setAmount]=useState(0);
+  // console.log("**@ 111111 , selected user is , ",user);
 
   const onSubmit=function(e){
     e.preventDefault();

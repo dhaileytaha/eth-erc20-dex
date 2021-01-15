@@ -34,7 +34,7 @@ function App({web3,contracts,accounts}) {
 
 
   const selectToken=(token)=>{
-    console.log("**@ 000000000000000000000000000000000000000000000 select Token called with token , ",token);
+    // console.log("**@ 000000000000000000000000000000000000000000000 select Token called with token , ",token);
     setUser({
       ...user,
       selectedToken:token
@@ -46,6 +46,7 @@ function App({web3,contracts,accounts}) {
       contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker),SIDE.BUY).call(),
       contracts.dex.methods.getOrders(web3.utils.fromAscii(token.ticker),SIDE.SELL).call()
     ]);
+    console.log("**@ 1111 , the orders are , ",orders);
 
     return {buy:orders[0],sell:orders[1]};
 
@@ -54,11 +55,13 @@ function App({web3,contracts,accounts}) {
   // a dunction to create limit order
   // function to create market order
   const createLimitOrder=async function(amount,price,side){
+    console.log(`**@ the create limit order method called with amount ${amount} , pricve ${price} , side ${side} `);
     await contracts.dex.methods
     .createLimitOrder(web3.utils.fromAscii(user.selectedToken.ticker),amount,price,side)
     .send({from:user.accounts[0]});
 
     let orders=await getOrders(user.selectedToken);
+    console.log("**@ 2222 , the orders are , ",orders);
   setOrders(orders);
     }
 
@@ -105,8 +108,8 @@ function App({web3,contracts,accounts}) {
 
     // get the user wallet token balance for that particular token
     const tokenWallet=await contracts[token.ticker].methods.balanceOf(account).call();
-    console.log("**@ token dex is , ",tokenDex);
-    console.log("**@ tokenWallet is ,",tokenWallet);
+    // console.log("**@ token dex is , ",tokenDex);
+    // console.log("**@ tokenWallet is ,",tokenWallet);
 
     return {tokenDex,tokenWallet};
   }
@@ -127,7 +130,7 @@ function App({web3,contracts,accounts}) {
 
  // update the user
  setUser((user)=>({...user,balances}));
- console.log('**@ the deposit user is , ',user);
+//  console.log('**@ the deposit user is , ',user);
   }
 
 
@@ -146,14 +149,14 @@ function App({web3,contracts,accounts}) {
    
     // update the user
     setUser((user)=>({...user,balances}));
-    console.log('**@ the  withdraw user is , ',user);
+    // console.log('**@ the  withdraw user is , ',user);
 
      }
   
 
   useEffect(()=>{
 
-    console.log("**@ inside app.js , the contracts are , ",contracts);
+    // console.log("**@ inside app.js , the contracts are , ",contracts);
     const init=async function(){
     const rawTokens=await contracts.dex.methods.listTradeTokens().call();
     const tokens=rawTokens.map((token)=>({
@@ -162,6 +165,8 @@ function App({web3,contracts,accounts}) {
     }
 
     ));
+
+    // console.log("**@ tokens are , ",tokens);
  
     const [balances,orders]=await Promise.all([getBalances(accounts[0],tokens[0]),getOrders(tokens[0])]) ;
 
@@ -249,7 +254,7 @@ function App({web3,contracts,accounts}) {
                <MyOrders
                orders={{
                  buy:orders.buy.filter((order)=>order.trader.toLowerCase()===user.accounts[0].toLowerCase()),
-                 sell:orders.buy.filter((order)=>order.trader.toLowerCase()===user.accounts[0].toLowerCase()),
+                 sell:orders.sell.filter((order)=>order.trader.toLowerCase()===user.accounts[0].toLowerCase()),
                }}
                ></MyOrders>
              </div>
